@@ -1,6 +1,8 @@
 export default {
   locale: 'en',
   messages: {
+  thumbUpPost: ' + ',
+  thumbDownPost: ' - ',
     siteTitle: 'MERN Starter Blog',
     addPost: 'Add Post',
     editPost: 'Edit Post',

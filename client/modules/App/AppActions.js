@@ -14,3 +14,5 @@ export function toggleEditPost() {
     type: TOGGLE_EDIT_POST
   };
 }
+
+export const getShowEditPost = state => state.app.showEditPost;

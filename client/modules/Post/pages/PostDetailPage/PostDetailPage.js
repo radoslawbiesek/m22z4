@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import getShowEditPost from '../../../App/AppActions';
+import { getShowEditPost, toggleEditPost } from '../../../App/AppActions';
 
 // Import Style
 import styles from '../../components/PostListItem/PostListItem.css';
 
 // Import Actions
-import { fetchPost } from '../../PostActions';
+import { fetchPost, editPostRequest } from '../../PostActions';
 
 // Import Selectors
 import { getPost } from '../../PostReducer';
@@ -64,7 +64,7 @@ export class PostDetailPage extends React.Component {
       <div>
         <Helmet title={props.post.title} />
         <a className={styles['edit-post-button']} href='#' onClick={this.props.toggleEditPost}><FormattedMessage id="editPost"/></a>
-        {``
+        {
           this.props.showEditPost
             ? this.renderPostForm()
             : this.renderPost()
