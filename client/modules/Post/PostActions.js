@@ -87,16 +87,18 @@ export function thumbUpPost(cuid) {
   return {
     type: THUMB_UP_POST,
     cuid,
+    votes
   }
 }
 
-export function thumbUpPostRequest(cuid, post) {
+export function thumbUpPostRequest(post) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`, 'put', {
+    const newVotes = post.votes + 1;
+    return callApi(`posts/${post.cuid}`, 'put', {
       post: {
-        votes: post.votes + 1
+        votes: newVotes
       },
-    }).then(() => dispatch(thumbUpPost(cuid, post)));
+    }).then(() => dispatch(thumbUpPost(post)));
   };
 }
 
@@ -104,15 +106,16 @@ export function thumbDownPost(cuid) {
   return {
     type: THUMB_DOWN_POST,
     cuid,
+    votes
   }
 }
 
-export function thumbDownPostRequest(cuid, post) {
+export function thumbDownPostRequest(post) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`, 'put', {
+    return callApi(`posts/${post.cuid}`, 'put', {
       post: {
         votes: post.votes - 1
       },
-    }).then(() => dispatch(thumbDownPost(cuid, post)));
+    }).then(() => dispatch(thumbDownPost(post)));
   };
 }
