@@ -86,10 +86,22 @@ export function deletePost(req, res) {
  * @returns void
  */
 export function editPost(req, res) {
-  Post.update({ cuid: req.params.cuid }, req.body.post).exec((err, post) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ post });
+  Post.findOneAndUpdate(
+    { 
+      "cuid": req.params.cuid 
+    }, 
+    {
+      "name": req.body.post.name, 
+      "content": req.body.post.content, 
+      "title": req.body.post.title
+    }, 
+    {
+      new: true
+    },
+    (err, post) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.json(post);
   });
 }
