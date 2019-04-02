@@ -105,3 +105,22 @@ export function editPost(req, res) {
       res.json(post);
   });
 }
+
+export function updatePostVotes(req, res) {
+  Post.findOneAndUpdate(
+    {
+      "cuid": req.params.cuid
+    },
+    {
+      "votes": req.body.post.votes,
+    },
+    {
+      new: true,
+    },
+    (err, post) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.json(post);
+    });
+  }

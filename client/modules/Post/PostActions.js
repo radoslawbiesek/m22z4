@@ -83,38 +83,35 @@ export function editPostRequest(cuid, post) {
   };
 }
 
-export function thumbUpPost(cuid) {
+export function thumbUpPost(post) {
   return {
     type: THUMB_UP_POST,
-    cuid,
-    votes
+    post
   }
 }
 
 export function thumbUpPostRequest(post) {
   return (dispatch) => {
-    const newVotes = post.votes + 1;
-    return callApi(`posts/${post.cuid}`, 'put', {
+    return callApi(`posts/up/${post.cuid}`, 'put', {
       post: {
-        votes: newVotes
+        votes: post.votes,
       },
     }).then(() => dispatch(thumbUpPost(post)));
   };
 }
 
-export function thumbDownPost(cuid) {
+export function thumbDownPost(post) {
   return {
     type: THUMB_DOWN_POST,
-    cuid,
-    votes
+    post
   }
 }
 
 export function thumbDownPostRequest(post) {
   return (dispatch) => {
-    return callApi(`posts/${post.cuid}`, 'put', {
+    return callApi(`posts/down/${post.cuid}`, 'put', {
       post: {
-        votes: post.votes - 1
+        votes: post.votes,
       },
     }).then(() => dispatch(thumbDownPost(post)));
   };
