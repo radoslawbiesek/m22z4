@@ -91,12 +91,17 @@ export function thumbUpPost(post) {
 }
 
 export function thumbUpPostRequest(post) {
+  const thumbedUpPost = {
+    ...post,
+    votes: post.votes + 1,
+  };
   return (dispatch) => {
     return callApi(`posts/up/${post.cuid}`, 'put', {
       post: {
-        votes: post.votes,
-      },
-    }).then(() => dispatch(thumbUpPost(post)));
+        votes: thumbedUpPost.votes,
+      }, 
+    })
+    .then(() => dispatch(thumbUpPost(thumbedUpPost)));
   };
 }
 
@@ -108,11 +113,15 @@ export function thumbDownPost(post) {
 }
 
 export function thumbDownPostRequest(post) {
+  const thumbedDownPost = {
+    ...post,
+    votes: post.votes -1,
+  };
   return (dispatch) => {
     return callApi(`posts/down/${post.cuid}`, 'put', {
       post: {
-        votes: post.votes,
+        votes: thumbedDownPost.votes,
       },
-    }).then(() => dispatch(thumbDownPost(post)));
+    }).then(() => dispatch(thumbDownPost(thumbedDownPost)));
   };
 }
